@@ -1,2 +1,2 @@
 Demo web service clients for Moodle 2
-They work for any Moodle 2.X excepted when mentioned (for example REST-JSON will only be available in Moodle 2.2)
+They work for any Moodle 2.X excepted when mentioned (for example REST-JSON will only be available in Moodle 2.2 and later)
