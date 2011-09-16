@@ -9,6 +9,7 @@
 
 /**
  * REST client for Moodle 2
+ * Return JSON or XML format
  *
  * @authorr Jerome Mouneyrac
  */
@@ -17,6 +18,10 @@
 $token = 'acabec9d20933913f14301785324f579';
 $domainname = 'http://www.yourmoodle.com';
 $functionname = 'moodle_user_create_users';
+
+// REST RETURNED VALUES FORMAT
+$restformat = 'xml'; //Also possible in Moodle 2.2 and later: 'json'
+                     //Setting it to 'json' will fail all calls on earlier Moodle version
 
 //////// moodle_user_create_users ////////
 
@@ -51,10 +56,12 @@ $user2->timezone = 'Pacific/Port_Moresby';
 $users = array($user1, $user2);
 $params = array('users' => $users);
 
-/// REST CALL 
+/// REST CALL
 header('Content-Type: text/plain');
 $serverurl = $domainname . '/webservice/rest/server.php'. '?wstoken=' . $token . '&wsfunction='.$functionname;
 require_once('./curl.php');
 $curl = new curl;
-$resp = $curl->post($serverurl, $params);
+//if rest format == 'xml', then we do not add the param for backward compatibility with Moodle < 2.2
+$restformat = ($restformat == 'json')?'&restformat=' . $restformat:''; 
+$resp = $curl->post($serverurl . $restformat, $params);
 print_r($resp);
