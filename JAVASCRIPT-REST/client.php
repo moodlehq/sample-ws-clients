@@ -57,7 +57,7 @@ $(document).ready(function() {
     var data = {
                 wstoken: token,
                 wsfunction: functionname,
-                restformat: 'json',
+                moodlewsrestformat: 'json',
                 users: userstocreate
                 }
     var response = $.ajax(
