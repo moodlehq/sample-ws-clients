@@ -8,13 +8,10 @@
  */
 package xmlrpcmoodleclient;
 
-import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -84,18 +81,14 @@ public class XmlRpcMoodleClient {
         
         //Display the result in the console log
         //This piece of code NEED TO BE CHANGED if you call another function
-        if ((result instanceof Object[])) {
-            System.out.println("An array has been returned. Length is " + result.length);
+        System.out.println("An array has been returned. Length is " + result.length);
+        for (int i = 0; i < result.length; i++) {
+                HashMap createduser = (HashMap) result[i];
+                Integer id = (Integer) createduser.get("id");
+                System.out.println("id = " + id);
+                String username = (String) createduser.get("username");
+                System.out.println("username = " + username);
 
-            for (int i = 0; i < result.length; i++) {
-                    HashMap createduser = (HashMap) result[i];
-                    Integer id = (Integer) createduser.get("id");
-                    System.out.println("id = " + id);
-                    String username = (String) createduser.get("username");
-                    System.out.println("username = " + username);
-                
-            }
         }
-
     }
 }
