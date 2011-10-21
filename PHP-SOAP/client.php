@@ -50,12 +50,36 @@ $user2->email = 'testemail1@moodle.com';
 $user2->timezone = 'Pacific/Port_Moresby';
 $params = array($user1, $user2);
 
-/// SOAP CALL 
+/// SOAP CALL
 $serverurl = $domainname . '/webservice/soap/server.php'. '?wsdl=1&wstoken=' . $token;
+
+//Check that the wsdl is available (no authentication error)
+//Note: the wsdl generation script could return a xml error document instead of a WSDL document.
+//      SoapClient() would not recognize this xml error document as a WSDL document and it will throw an invalid WSDL exception.
+//      So we need to catch these WSDL generation errors first.
+//      TODO: try this check only once. Then cache the WSDL. You don't want to do this extra call all the time.
+$xml = simplexml_load_file($serverurl);
+$faulcode = $xml->xpath('/SOAP-ENV:Envelope/SOAP-ENV:Body/SOAP-ENV:Fault/faultcode');
+if (!empty($faulcode[0])) {
+    $faultcode = (array) $faulcode[0];
+    print_r($faultcode[0]);
+
+    $faultstring = $xml->xpath('/SOAP-ENV:Envelope/SOAP-ENV:Body/SOAP-ENV:Fault/faultstring');
+    if (!empty($faultstring[0])) {
+        $faultstring = (array) $faultstring[0];
+        print_r('<BR/>');
+        print_r($faultstring[0]);
+    }
+    die();
+}
+
+////Do the main soap call
 $client = new SoapClient($serverurl);
 try {
 $resp = $client->__soapCall($functionname, array($params));
 } catch (Exception $e) {
     print_r($e);
 }
-print_r($resp);
+if (isset($resp)) {
+    print_r($resp);
+}
