@@ -1,2 +1,5 @@
 Demo web service clients for Moodle 2
 They work for any Moodle 2.X excepted when mentioned (for example REST-JSON will only be available in Moodle 2.2 and later)
+
+Note: it is sometimes not easy to know how to format the parameters (they can be found into Admin block > plugins > Web services > API documentation).
+In order to help, Patrick Pollet wrote a script in PHP at http://tracker.moodle.org/browse/CONTRIB-3472. It produces all the 'skeleton' parameters. 
