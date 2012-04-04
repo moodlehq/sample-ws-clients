@@ -1,63 +1,70 @@
 #!/usr/bin/perl 
 #===============================================================================
 #         FILE:  sample-rest-client.pl
-#        USAGE:  ./sample-rest-client.pl  
+#        USAGE:  ./sample-rest-client.pl
 #  DESCRIPTION:  Sample Perl rest client to access moodle 2 web services
-#                In this sample, we create two courses
+#                In this sample, we create two users
 #       AUTHOR:  Emmanuel Otton (EO), otton@mines-albi.fr
 #                based on a post by Richard Gillette
 #                ( http://moodle.org/mod/forum/discuss.php?d=182471 )
 #      VERSION:  1.0
 #      CREATED:  02/04/2012 16:30
-#     REVISION:  ---
 #===============================================================================
 use strict;
 use warnings;
-use LWP::UserAgent;
+use LWP::UserAgent; # web client
+use JSON;           # imports encode_json, decode_json, to_json and from_json.
+use Data::Dumper;   # to print the result variable
 
 # --- These need to be changed for your site:
-my $url_ws = "https://mymoodle.mydomain.fr/webservice/rest/server.php";
-my $token  = "12345678901234567890123456789012";
+my $url_ws = "http://www.yourmoodle.com/~jerome/Moodle_HEAD/webservice/rest/server.php";
+my $token  = "f95fe8ce5f6a4f01dc24ccdf333bba22";
 
-# -- let's create our user agent
-my $ua = LWP::UserAgent->new;
-$ua->ssl_opts(verify_hostname => 0);    # be tolerant to self-signed certificates
-
-# --- prepare our parameters, with enough data to create two courses.
-# we cannot send the parameters
-# in the form of a serialized structure.
-# We have to send separately each parameter,
-# and name it like a PHP-structure element,
-# as the WS API doc says:
-#   REST (POST parameters)
-#   courses[0][fullname]= string
-#   courses[0][shortname]= string
-#   courses[0][categoryid]= int
-# .../...
+# --- Function name and parameters
+my $functionname = "core_user_create_users";
+my $restformat = "json"; # Moodle rest server can also return xml
 my $params = {
-    'wstoken'                 => $token,
-    'wsfunction'              => 'core_course_create_courses',
-    'moodlewsrestformat'      => 'json',
-    'courses[0][fullname]'    => 'My first API-created course',
-    'courses[0][shortname]'   => 'BINGO_01',
-    'courses[0][categoryid]'  =>  4,
-    'courses[0][idnumber]'    => 'mdlws101',
-    'courses[0][format]'      => 'topics',
-    'courses[0][numsections]' =>  3,
-    'courses[1][fullname]'    => 'And this one is the second',
-    'courses[1][shortname]'   => 'BINGO_02',
-    'courses[1][categoryid]'  =>  4,
-    'courses[1][idnumber]'    => 'sgbd101',
-    'courses[1][format]'      => 'topics',
-    'courses[1][numsections]' =>  3,
+    'wstoken'                      => $token,
+    'wsfunction'                   => $functionname,
+    'moodlewsrestformat'           => $restformat,
+    'users[0][username]'           => 'testusername1',
+    'users[0][password]'           => 'Testpassword1!',
+    'users[0][firstname]'          =>  'testfirstname1',
+    'users[0][lastname]'           => 'testlastname1',
+    'users[0][email]'              => 'testemail1@moodle.com',
+    'users[0][timezone]'           =>  '-12.5',
+    'users[0][auth]'               =>  'manual',
+    'users[0][idnumber]'           =>  'testidnumber1',
+    'users[0][lang]'               =>  'en',
+    'users[0][theme]'              =>  'standard',
+    'users[0][mailformat]'         =>  '0',
+    'users[0][description]'        =>  'Hello World',
+    'users[0][city]'               =>  'testcity1',
+    'users[0][country]'            =>  'au',
+    'users[0][preferences][0][type]'  =>  'preference1',
+    'users[0][preferences][0][value]' =>  'preferencevalue1',
+    'users[0][preferences][1][type]'  =>  'preference2',
+    'users[0][preferences][1][value]' =>  'preferencevalue1',
+    'users[1][username]'           => 'testusername2',
+    'users[1][password]'           => 'Testpassword2!',
+    'users[1][firstname]'          =>  'testfirstname2',
+    'users[1][lastname]'           => 'testlastname2',
+    'users[1][email]'              => 'testemail2@moodle.com',
+    'users[1][timezone]'           =>  'Pacific/Port_Moresby',
 };
 
-# --- Now just send our post request...
-my $res = $ua->post( $url_ws, $params );
+my $ua = LWP::UserAgent->new;        # -- let's create our user agent
+#$ua->ssl_opts(verify_hostname => 0); # be tolerant to self-signed certificates
 
-# --- and test success or failure:
-if ($res->is_success) {
-    print $res->content, "\n";
-} else {
-    print $res->status_line, "\n";
+my $result = $ua->post( $url_ws, $params );;      # --- ..and send the get request
+
+if ( not $result->is_success ) {
+    print $result->status_line, "\n";   # --- it might not work...
 }
+
+my $jsondecoder = JSON->new->allow_nonref;  # --- decode the JSON result,
+my $userids = $jsondecoder->decode( $result->content );
+
+print Dumper($userids);
+
+__END__
