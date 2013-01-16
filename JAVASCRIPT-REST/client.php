@@ -1,4 +1,4 @@
-<?php 
+<?php
 // This file is NOT a part of Moodle - http://moodle.org/
 //
 // This client for Moodle 2 is free software: you can redistribute it and/or modify
@@ -14,15 +14,15 @@
  */
 ?>
 
-<html>                                                                  
-<head>                                                                  
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>          
-<script type="text/javascript">    
+<html>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
+<script type="text/javascript">
 $(document).ready(function() {
 
     var domainname = 'http://yourmoodle';
     var token = 'acabec9d208978d986986g987657ffg9';
-    var functionname = 'moodle_user_create_users';
+    var functionname = 'core_user_create_users';
 
     var serverurl = domainname + '/webservice/rest/server.php' ;
     //add params into data
@@ -68,11 +68,11 @@ $(document).ready(function() {
                          );
     console.info(response);
 });
-</script>                                                               
-</head>                                                                 
+</script>
+</head>
 <body>
     Check your Javascript console for the "responseText" value.
-</body>                                                                 
+</body>
 </html>
 
 

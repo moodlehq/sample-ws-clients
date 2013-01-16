@@ -16,7 +16,7 @@
 /// SETUP - NEED TO BE CHANGED
 $token = 'acabec9d20933913f14301785324f579';
 $domainname = 'http://www.yourmoodle.com';
-$functionname = 'moodle_user_create_users';
+$functionname = 'core_user_create_users';
 
 //////// moodle_user_create_users ////////
 

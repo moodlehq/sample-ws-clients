@@ -17,7 +17,7 @@
 /// SETUP - NEED TO BE CHANGED
 $token = 'acabec9d20933913f14301785324f579';
 $domainname = 'http://www.yourmoodle.com';
-$functionname = 'moodle_user_create_users';
+$functionname = 'core_user_create_users';
 
 // REST RETURNED VALUES FORMAT
 $restformat = 'xml'; //Also possible in Moodle 2.2 and later: 'json'

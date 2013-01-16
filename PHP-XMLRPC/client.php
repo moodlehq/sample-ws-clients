@@ -16,7 +16,7 @@
 /// SETUP - NEED TO BE CHANGED
 $token = 'acabec9d20933913f14301785324f579';
 $domainname = 'http://www.yourmoodle.com';
-$functionname = 'moodle_user_create_users';
+$functionname = 'core_user_create_users';
 
 //////// moodle_user_create_users ////////
 
@@ -50,7 +50,7 @@ $user2->email = 'testemail1@moodle.com';
 $user2->timezone = 'Pacific/Port_Moresby';
 $params = array($user1, $user2);
 
-/// XML-RPC CALL 
+/// XML-RPC CALL
 header('Content-Type: text/plain');
 $serverurl = $domainname . '/webservice/xmlrpc/server.php'. '?wstoken=' . $token;
 require_once('./curl.php');

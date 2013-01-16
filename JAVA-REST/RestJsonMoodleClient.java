@@ -21,7 +21,7 @@ import java.net.URLEncoder;
 /**
  * REST MOODLE Client
  * It's very basic. You'll have to write the JavaObject2POST code.
- * 
+ *
  * @author Jerome Mouneyrac jerome@moodle.com
  */
 public class RestJsonMoodleClient {
@@ -31,11 +31,11 @@ public class RestJsonMoodleClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ProtocolException, IOException {
-        
+
         /// NEED TO BE CHANGED
         String token = "acabec9d20933913f14301785324f579";
         String domainName = "http://www.yourmoodle.com";
-        
+
         /// REST RETURNED VALUES FORMAT
         String restformat = "xml"; //Also possible in Moodle 2.2 and later: 'json'
                                    //Setting it to 'json' will fail all calls on earlier Moodle version
@@ -44,10 +44,10 @@ public class RestJsonMoodleClient {
         } else {
             restformat = "";
         }
-        
+
         /// PARAMETERS - NEED TO BE CHANGED IF YOU CALL A DIFFERENT FUNCTION
-        String functionName = "moodle_user_create_users";
-        String urlParameters = 
+        String functionName = "core_user_create_users";
+        String urlParameters =
         "users[0][username]=" + URLEncoder.encode("testusername1", "UTF-8") +
         "&users[0][password]=" + URLEncoder.encode("testpassword1", "UTF-8") +
         "&users[0][firstname]=" + URLEncoder.encode("testfirstname1", "UTF-8") +
@@ -72,14 +72,14 @@ public class RestJsonMoodleClient {
         "&users[1][lastname]=" + URLEncoder.encode("testlastname2", "UTF-8") +
         "&users[1][email]=" + URLEncoder.encode("testemail2@moodle.com", "UTF-8") +
         "&users[1][timezone]=" + URLEncoder.encode("Pacific/Port_Moresby", "UTF-8");
-        
+
         /// REST CALL
-                
+
         // Send request
         String serverurl = domainName + "/webservice/rest/server.php" + "?wstoken=" + token + "&wsfunction=" + functionName;
         HttpURLConnection con = (HttpURLConnection) new URL(serverurl).openConnection();
         con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", 
+        con.setRequestProperty("Content-Type",
            "application/x-www-form-urlencoded");
         con.setRequestProperty("Content-Language", "en-US");
         con.setDoOutput(true);
@@ -90,12 +90,12 @@ public class RestJsonMoodleClient {
         wr.writeBytes (urlParameters);
         wr.flush ();
         wr.close ();
-        
+
         //Get Response
         InputStream is =con.getInputStream();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));
         String line;
-        StringBuilder response = new StringBuilder(); 
+        StringBuilder response = new StringBuilder();
         while((line = rd.readLine()) != null) {
             response.append(line);
             response.append('\r');

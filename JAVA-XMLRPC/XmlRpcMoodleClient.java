@@ -20,7 +20,7 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
  * XML-RPC MOODLE Client
  * You need to download the Apache XML-RPC library http://apache.mirror.aussiehq.net.au//ws/xmlrpc/
  * and add the jar files to your project.
- * 
+ *
  * @author Jerome Mouneyrac jerome@moodle.com
  */
 public class XmlRpcMoodleClient {
@@ -36,7 +36,7 @@ public class XmlRpcMoodleClient {
         String domainName = "http://www.yourmoodle.com";
 
         /// PARAMETERS - NEED TO BE CHANGED IF YOU CALL A DIFFERENT FUNCTION
-        String functionName = "moodle_user_create_users";
+        String functionName = "core_user_create_users";
         Hashtable user1 = new Hashtable();
         user1.put("username", "testusername1");
         user1.put("password", "testpassword1");
@@ -78,7 +78,6 @@ public class XmlRpcMoodleClient {
         Object[] params = new Object[]{users};
         Object[] result = (Object[]) client.execute(functionName, params);
 
-        
         //Display the result in the console log
         //This piece of code NEED TO BE CHANGED if you call another function
         System.out.println("An array has been returned. Length is " + result.length);
