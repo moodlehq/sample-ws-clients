@@ -23,7 +23,7 @@ $functionname = 'moodle_user_create_users';
 /// PARAMETERS - NEED TO BE CHANGED IF YOU CALL A DIFFERENT FUNCTION
 $user1 = new stdClass();
 $user1->username = 'testusername1';
-$user1->password = 'testpassword1';
+$user1->password = 'Testpassword1!';
 $user1->firstname = 'testfirstname1';
 $user1->lastname = 'testlastname1';
 $user1->email = 'testemail1@moodle.com';
@@ -43,10 +43,10 @@ $user1->preferences = array(
     array('type' => $preferencename2, 'value' => 'preferencevalue2'));
 $user2 = new stdClass();
 $user2->username = 'testusername2';
-$user2->password = 'testpassword2';
+$user2->password = 'Testpassword2!';
 $user2->firstname = 'testfirstname2';
 $user2->lastname = 'testlastname2';
-$user2->email = 'testemail1@moodle.com';
+$user2->email = 'testemail2@moodle.com';
 $user2->timezone = 'Pacific/Port_Moresby';
 $params = array($user1, $user2);
 
