@@ -49,7 +49,7 @@ $(document).ready(function() {
                             password : 'testpassword2',
                             firstname : 'testfirstname2',
                             lastname : 'testlastname2',
-                            email : 'testemail1@moodle.com',
+                            email : 'testemail2@moodle.com',
                             timezone : 'Pacific/Port_Moresby'
                          }
                      ];
