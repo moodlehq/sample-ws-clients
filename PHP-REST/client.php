@@ -51,7 +51,7 @@ $user2->username = 'testusername2';
 $user2->password = 'testpassword2';
 $user2->firstname = 'testfirstname2';
 $user2->lastname = 'testlastname2';
-$user2->email = 'testemail1@moodle.com';
+$user2->email = 'testemail2@moodle.com';
 $user2->timezone = 'Pacific/Port_Moresby';
 $users = array($user1, $user2);
 $params = array('users' => $users);
